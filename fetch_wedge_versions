@@ -1,0 +1,99 @@
+########################## PYTHON ##########################
+import hou, os, spider
+
+wedge_import = hou.node('/obj/geo1/wedge_import')
+cacheOutPath = wedge_import.evalParm('cachenode')
+import_type = wedge_import.evalParm('filenodetype')
+job = hou.expandString('$JOB')
+
+cache_node = hou.node(cacheOutPath)
+shot = cache_node.evalParm('ivy_shot')
+task = cache_node.evalParm('ivy_task')
+label = cache_node.evalParm('ivy_label')
+lod = cache_node.evalParm('ivy_lod')
+version = cache_node.evalParm('ivy_version_string')
+
+if len(str(version)) < 2:
+    lodstring = '_lod' + lod + '_v00' + version
+else:
+    lodstring = '_lod' + lod + '_v0' + version
+    
+initString = 'BCH_' + shot + '_' + task + '_'
+fullString = initString + label + lodstring
+
+label_split = label.split('w')[0]
+label_split_version = label.split('w')[1]
+
+job_path = job.split('houdini')[0] + 'ivy/bch/'
+job_folder = os.listdir(job_path)
+
+sh = spider.getHandler()
+show = os.environ['SHOW']
+
+wedge_import.allowEditingOfContents()
+
+inside = wedge_import.children()
+
+for inode in inside:
+    hou.node(inode.path()).destroy()
+
+mergeInput = wedge_import.evalParm('mergeresult')
+version = wedge_import.evalParm('version')
+
+null = wedge_import.createNode('null', 'OUT')
+
+if mergeInput == 1:
+    merge = wedge_import.createNode('merge')
+else:
+    switch = wedge_import.createNode('switch')
+    
+counter = 0
+# Make list of cache folder names.
+for filename in job_folder:
+    if filename.endswith(lodstring):
+        if filename.startswith(initString + label_split):
+            file_folder = os.listdir(job_path + '/' + filename)
+            
+            # Make list of file names.
+            for subfile in file_folder:
+                fullpath = job_path + filename + '/' + subfile
+                fullpath_split = fullpath.split('.')[0]
+                fullpath_combine = fullpath_split + '$F4.bgeo.sc'
+                
+            if import_type == 0:
+                file_node = wedge_import.createNode('file')
+                file_node.parm('file').set(fullpath_combine)
+                file_node.setInput(0, wedge_import.indirectInputs()[0])
+                
+                if mergeInput == 1:
+                    merge.setInput(counter, file_node)
+                    
+                else:
+                    switch.setInput(counter, file_node)
+                    
+            else:
+                stalkname = filename
+                stalk = sh['Stalk'].one(
+                sh['Stalk']['job'] == show,
+                sh['Stalk']['stalkname'] == stalkname
+                )
+                uuid = stalk['dnuuid']
+                
+                file_node = wedge_import.createNode('cacheIn')
+                hit = file_node.parm("menu_source").menuItems()
+                file_node.parm("menu_source").set(hit[1])
+                file_node.parm('stalkUuid').set(uuid)
+                file_node.setInput(0, wedge_import.indirectInputs()[0])
+                
+                if mergeInput == 1:
+                    merge.setInput(counter, file_node)
+                else:
+                    switch.setFirstInput(file_node)
+                    
+            counter += 1
+            
+if mergeInput == 1:
+    null.setFirstInput(merge)
+else:
+    null.setFirstInput(switch)
+wedge_import.layoutChildren()

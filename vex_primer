@@ -287,3 +287,26 @@ foreach(int pt; pts) {
     setprimattrib(0, "Cd", pt, {1,0,0.2}, "set");
     }
 printf("%s\n", pts);
+
+########################### VEX ###########################
+// Collect points in array using attrib value.
+int val = chi("Value");
+int pts[] = findattribval(0, "prim", "id", val);
+foreach(int pt; pts) {
+    setprimattrib(0, "Cd", pt, {1,0,0.2}, "set");
+    }
+printf("%s\n", pts);
+
+########################## PYTHON ##########################
+# Move node position using translate parameter of Transform node.
+transform = hou.node("/obj/geo1/transform1")
+sphere = hou.node("/obj/geo1/sphere1")
+
+translate = transform.evalParmTuple("t")
+tarpos = hou.Vector2(-translate[0], translate[2])
+sphere.setPosition(tarpos)
+
+ry = transform.evalParm("ry")
+color = hou.Color((1,1,1))
+color.setHSV((ry, 0.6, 0.6))
+sphere.setColor(color)

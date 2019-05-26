@@ -1,4 +1,4 @@
-
+#### Update "Cd" attrib based on "xor" comparison of y-pos of 2 geometries.
 ```python
 # Run in Python SOP.
 # Update "Cd" attrib based on "xor" comparison of y-position of 2 geometries.
@@ -17,7 +17,7 @@ color = hou.Vector3((0.2,0.2,0.6))
 if xor:
     geo.addAttrib(hou.attribType.Point, "Cd", (0.2,0.2,0.6))
 ```
-
+#### Create blast node for each unique value of "cat_name" prim attrib.
 ```python
 # Create blast node for each unique value of "cat_name" prim attrib.
 import hou
@@ -49,6 +49,7 @@ for i in range(0, len(catNames)):
     blast.setFirstInput(null)
     blast.moveToGoodPosition()
 ```
+#### Write "Cd" prim attrib values into a text file.
 ```python
 # Write "Cd" prim attrib values into a text file.
 import hou
@@ -76,6 +77,7 @@ for color, path in zip(colorAttribVals, pathAttribVals):
 
 colorFile.close()
 ```
+#### Add string attribute and update value through loop.
 ```python
 # Run in Python SOP.
 # Add string attribute and update value through loop.
@@ -90,6 +92,7 @@ for point in points:
 geo.addAttrib(hou.attribType.Point, "attributeName", "")
 geo.setPointStringAttribValues("attributeName", ["hello"] * len(geo.points()))
 ```
+#### Activate geometry at certain frames.
 ```python
 # Run in Python SOP.
 # Activate geometry at certain frames.
@@ -102,6 +105,7 @@ points = geo.points()
 if hou.frame() not in frames:
    geo.deletePoints(points)
 ```
+#### Transform geometry using hmath functions.
 ```python
 # Run in Python SOP.
 # Transform geometry using hmath functions.
@@ -113,6 +117,7 @@ M = hou.hmath.buildTranslate(vec)	#build matrix4 from a vector
 geo.transform(M)
 print M
 ```
+#### Compare parameter values of two nodes and display modified ones.
 ```python
 # Create new shelf tool and paste the script.
 # Compare parameter values of two nodes and display modified ones.
@@ -137,6 +142,7 @@ except IndexError:
     hou.ui.displayMessage("Please select two nodes to compare their parameter values.", \
 title="Select Nodes")
 ```
+#### Move node position using translate parameter of Transform node.
 ```python
 # Move node position using translate parameter of Transform node.
 transform = hou.node("/obj/geo1/transform1")

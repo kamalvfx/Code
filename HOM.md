@@ -117,25 +117,28 @@ M = hou.hmath.buildTranslate(vec)	#build matrix4 from a vector
 geo.transform(M)
 print M
 ```
-#### Compare parameter values of two nodes and display modified ones.
+#### Compare parameter values of two nodes of same type and display modified ones.
 ```python
-# Create new shelf tool and paste the script.
-# Compare parameter values of two nodes and display modified ones.
+# Compare parameter values of two nodes of same type and display modified ones.
 def compare_parms(node1, node2):
     parms1 = node1.parms()
     parms2 = node2.parms()
     mod_parms = []
     for parm1, parm2 in zip(parms1, parms2):
         if parm1.eval() != parm2.eval():
-            mod_parms.append(parm1.description())
+            mod_parms.append(parm1.description() + " " + parm1.name())
     parms = "\n".join(mod_parms)
     print parms
     hou.ui.displayMessage(parms)
 
 try:
-    node1 = hou.selectedNodes()[0]
-    node2 = hou.selectedNodes()[1]
-    compare_parms(node1, node2)
+    if len(hou.selectedNodes()) == 2:
+        node1 = hou.selectedNodes()[0]
+        node2 = hou.selectedNodes()[1]
+        compare_parms(node1, node2)
+    else:
+        hou.ui.displayMessage("Please select two nodes to compare their parameter values.", \
+title="Select Nodes")
 except IndexError:
     hou.ui.displayMessage("Please select two nodes to compare their parameter values.", \
 title="Select Nodes")

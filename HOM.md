@@ -1,6 +1,5 @@
 
 ```python
-########################## PYTHON ##########################
 # Run in Python SOP.
 # Update "Cd" attrib based on "xor" comparison of y-position of 2 geometries.
 node = hou.pwd()
@@ -51,7 +50,6 @@ for i in range(0, len(catNames)):
     blast.moveToGoodPosition()
 ```
 ```python
-########################## PYTHON ##########################
 # Write "Cd" prim attrib values into a text file.
 import hou
 
@@ -79,7 +77,6 @@ for color, path in zip(colorAttribVals, pathAttribVals):
 colorFile.close()
 ```
 ```python
-########################## PYTHON ##########################
 # Run in Python SOP.
 # Add string attribute and update value through loop.
 node = hou.pwd()
@@ -94,7 +91,6 @@ geo.addAttrib(hou.attribType.Point, "attributeName", "")
 geo.setPointStringAttribValues("attributeName", ["hello"] * len(geo.points()))
 ```
 ```python
-########################## PYTHON ##########################
 # Run in Python SOP.
 # Activate geometry at certain frames.
 node = hou.pwd()
@@ -107,7 +103,6 @@ if hou.frame() not in frames:
    geo.deletePoints(points)
 ```
 ```python
-########################## PYTHON ##########################
 # Run in Python SOP.
 # Transform geometry using hmath functions.
 node = hou.pwd()
@@ -119,7 +114,6 @@ geo.transform(M)
 print M
 ```
 ```python
-########################## PYTHON ##########################
 # Create new shelf tool and paste the script.
 # Compare parameter values of two nodes and display modified ones.
 def compare_parms(node1, node2):
@@ -144,7 +138,6 @@ except IndexError:
 title="Select Nodes")
 ```
 ```python
-########################## PYTHON ##########################
 # Move node position using translate parameter of Transform node.
 transform = hou.node("/obj/geo1/transform1")
 sphere = hou.node("/obj/geo1/sphere1")

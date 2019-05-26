@@ -143,9 +143,9 @@ except IndexError:
     hou.ui.displayMessage("Please select two nodes to compare their parameter values.", \
 title="Select Nodes")
 ```
-#### Move node position using translate parameter of Transform node.
+#### Change node position and color using parameters of Transform node.
 ```python
-# Move node position using translate parameter of Transform node.
+# Change node position and color using parameters of Transform node.
 transform = hou.node("/obj/geo1/transform1")
 sphere = hou.node("/obj/geo1/sphere1")
 

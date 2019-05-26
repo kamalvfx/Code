@@ -1,3 +1,4 @@
+```C
 ########################## PYTHON ##########################
 # Run in Python SOP.
 # Update "Cd" attrib based on "xor" comparison of y-position of 2 geometries.
@@ -15,6 +16,7 @@ xor = cond1 != cond2
 color = hou.Vector3((0.2,0.2,0.6))
 if xor:
     geo.addAttrib(hou.attribType.Point, "Cd", (0.2,0.2,0.6))
+```
 
 ########################## PYTHON ##########################
 # Create blast node for each unique value of "cat_name" prim attrib.

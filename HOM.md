@@ -1,4 +1,5 @@
-```C
+
+```python
 ########################## PYTHON ##########################
 # Run in Python SOP.
 # Update "Cd" attrib based on "xor" comparison of y-position of 2 geometries.
@@ -18,7 +19,7 @@ if xor:
     geo.addAttrib(hou.attribType.Point, "Cd", (0.2,0.2,0.6))
 ```
 
-########################## PYTHON ##########################
+```python
 # Create blast node for each unique value of "cat_name" prim attrib.
 import hou
 null = hou.node("/obj/geo1/null1")
@@ -48,8 +49,8 @@ for i in range(0, len(catNames)):
     blast.setParms({"group": blastVals[i], "negate": True})
     blast.setFirstInput(null)
     blast.moveToGoodPosition()
-
-
+```
+```python
 ########################## PYTHON ##########################
 # Write "Cd" prim attrib values into a text file.
 import hou
@@ -76,7 +77,8 @@ for color, path in zip(colorAttribVals, pathAttribVals):
     colorFile.write(str(color) + ' | ' + path + '\n')
 
 colorFile.close()
-
+```
+```python
 ########################## PYTHON ##########################
 # Run in Python SOP.
 # Add string attribute and update value through loop.
@@ -90,7 +92,8 @@ for point in points:
 # Alternative method below to set uniform value for all points.
 geo.addAttrib(hou.attribType.Point, "attributeName", "")
 geo.setPointStringAttribValues("attributeName", ["hello"] * len(geo.points()))
-
+```
+```python
 ########################## PYTHON ##########################
 # Run in Python SOP.
 # Activate geometry at certain frames.
@@ -102,7 +105,8 @@ frames = [int(f) for f in framesList]
 points = geo.points()
 if hou.frame() not in frames:
    geo.deletePoints(points)
-
+```
+```python
 ########################## PYTHON ##########################
 # Run in Python SOP.
 # Transform geometry using hmath functions.
@@ -113,7 +117,8 @@ vec = hou.Vector3((5, -2, 4))
 M = hou.hmath.buildTranslate(vec)	#build matrix4 from a vector
 geo.transform(M)
 print M
-
+```
+```python
 ########################## PYTHON ##########################
 # Create new shelf tool and paste the script.
 # Compare parameter values of two nodes and display modified ones.
@@ -130,8 +135,6 @@ def compare_parms(node1, node2):
     parms = "\n".join(mod_parms)
     print parms
     hou.ui.displayMessage(parms)
-
-    
 try:
     node1 = hou.selectedNodes()[0]
     node2 = hou.selectedNodes()[1]
@@ -139,7 +142,8 @@ try:
 except IndexError:
     hou.ui.displayMessage("Please select two nodes to compare their parameter values.", \
 title="Select Nodes")
-
+```
+```python
 ########################## PYTHON ##########################
 # Move node position using translate parameter of Transform node.
 transform = hou.node("/obj/geo1/transform1")
@@ -153,3 +157,4 @@ ry = transform.evalParm("ry")
 color = hou.Color((1,1,1))
 color.setHSV((ry, 0.6, 0.6))
 sphere.setColor(color)
+```

@@ -158,3 +158,11 @@ color = hou.Color((1,1,1))
 color.setHSV((ry, 0.6, 0.6))
 sphere.setColor(color)
 ```
+#### Make contents of ordered menu dynamic.
+```python
+geo = hou.node("/obj/geo1")
+children = geo.children()
+names = [node.name() for node in children]
+out = [item for sublist in enumerate(names) for item in sublist]
+return out
+```

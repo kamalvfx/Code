@@ -160,6 +160,8 @@ sphere.setColor(color)
 ```
 #### Make contents of ordered menu dynamic.
 ```python
+# Create an Ordered Menu parameter first for a node.
+# Paste script under Menu | Menu Script in Editor Parameter window.
 geo = hou.node("/obj/geo1")
 children = geo.children()
 names = [node.name() for node in children]

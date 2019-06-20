@@ -119,7 +119,6 @@ print M
 ```
 #### Compare parameter values of two nodes of same type and display modified ones.
 ```python
-# Compare parameter values of two nodes of same type and display modified ones.
 def compare_parms(node1, node2):
     parms1 = node1.parms()
     parms2 = node2.parms()
@@ -128,8 +127,11 @@ def compare_parms(node1, node2):
         if parm1.eval() != parm2.eval():
             mod_parms.append(parm1.description() + " " + parm1.name())
     parms = "\n".join(mod_parms)
-    print parms
-    hou.ui.displayMessage(parms)
+    if not mod_parms:
+        hou.ui.displayMessage("Parameters Equal")
+    else:
+        print parms
+        hou.ui.displayMessage(parms)
 
 try:
     if len(hou.selectedNodes()) == 2:

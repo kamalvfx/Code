@@ -61,3 +61,13 @@ foreach(int pt; pts) {
     }
 printf("%s\n", pts);
 ```
+### Create custom vector field.
+```c
+vector tarpos = point(1, "P", 0);
+float dist = distance(tarpos, @P);
+vector dir = tarpos - @P;   //target vector
+vector tangent = cross(@N, {0,1,0});
+
+//blend between tangent and target vector.
+@N = lerp(tangent, dir, chf("bias"));
+```

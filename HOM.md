@@ -170,3 +170,26 @@ names = [node.name() for node in children]
 out = [item for sublist in enumerate(names) for item in sublist]
 return out
 ```
+```python
+# Add spare parameter template to a node.
+import hou
+subnet = hou.node("/obj/geo1/subnet1")
+for i in range(2):
+    value = hou.FloatParmTemplate("value"+str(i+1), "Value "+str(i+1), 1)
+    weight = hou.FloatParmTemplate("weight"+str(i+1), "Weight "+str(i+1), 1)
+    value.setJoinWithNext(1)
+    subnet.addSpareParmTuple(value)
+    subnet.addSpareParmTuple(weight)
+```
+```python
+from random import random, choice
+node = hou.pwd()
+geo = node.geometry()
+geo.addAttrib(hou.attribType.Prim, "Cd", (0.2,0.2,0.6))
+geo.addAttrib(hou.attribType.Prim, "name", "")
+prims = geo.iterPrims()
+choices = [(0.2,0.2,0.6), (0.8,0.2,0.3), (0.3, 0.5, 0.5)]
+for prim in prims:
+    prim.setAttribValue("Cd", (choice(choices)))
+    prim.setAttribValue("name", "prim" + str(prim.number()))
+```

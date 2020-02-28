@@ -71,3 +71,8 @@ vector tangent = cross(@N, {0,1,0});
 //blend between tangent and target vector.
 @N = lerp(tangent, dir, chf("bias"));
 ```
+#### Extract transform.
+```c
+matrix mat = primintrinsic(1, "packedfulltransform", 0);
+setattrib(0, "primintrinsic", "transform", @primnum, -1, mat, "multiply");
+```

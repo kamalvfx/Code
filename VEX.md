@@ -1,19 +1,24 @@
-#### Change color of point if point exceeds certain y-pos.
+#### Filter points based on certain mutual distance among points.
 ```c
-// Change color of point if point exceeds certain y-pos.
-vector pos = point(0, "P", 0);
-int pts[] = {};
-for (int i = 0; i < npoints(0); i++){
-    pos = point(0, "P", i);
-    if (pos.y > 3){
-        append(pts, i);
+// point filter tool 1.0
+// authored by Kamaljeet Singh
+// set Run Over parm to "Detail (only once)"
+int cull_points[];
+for(int i = 0; i < npoints(0); i++) {
+    if (find(cull_points, i) > -1) {
+        continue;
         }
+    vector pos = point(0, "P", i);
+    int near_points[] = nearpoints(0, pos, chf("search_radius"));
+    pop(near_points, 0); // get rid of self point num
+    foreach(int near_point; near_points) { 
+        append(cull_points, near_point);
+        }
+    }    
+foreach(int cull_point; cull_points) {
+    setpointattrib(0, "Cd", cull_point, {1, 1, 0}, "set");
+    setpointgroup(0, "filter", cull_point, 1, "set");
     }
-    
-foreach(int i; pts){
-    setpointattrib(0, "Cd", i, {0.6,0.2,0.8}, "set");
-    }
-printf("%s\n", pts);
 ```
 #### Change color based on "xor" comparison of y-pos of two geometries.
 ```c

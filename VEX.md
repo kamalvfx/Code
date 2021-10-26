@@ -9,7 +9,7 @@ for(int i = 0; i < npoints(0); i++) {
         continue;
         }
     vector pos = point(0, "P", i);
-    int near_points[] = nearpoints(0, pos, chf("search_radius"));
+    int near_points[] = nearpoints(0, pos, chf("max_distance"));
     pop(near_points, 0); // get rid of self point num
     foreach(int near_point; near_points) { 
         append(cull_points, near_point);

@@ -1,4 +1,4 @@
-#### Filter points based on certain mutual distance among points.
+#### Filter points based on certain mutual distance among them.
 ```c
 // point filter tool 1.0
 // authored by Kamaljeet Singh

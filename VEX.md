@@ -4,18 +4,18 @@
 // authored by Kamaljeet Singh
 // set Run Over parm to "Detail (only once)"
 int cull_points[];
-for(int i = 0; i < npoints(0); i++) {
+for (int i = 0; i < npoints(0); i++) {
     if (find(cull_points, i) > -1) {
         continue;
         }
     vector pos = point(0, "P", i);
     int near_points[] = nearpoints(0, pos, chf("max_distance"));
     pop(near_points, 0); // get rid of self point num
-    foreach(int near_point; near_points) { 
+    foreach (int near_point; near_points) { 
         append(cull_points, near_point);
         }
     }    
-foreach(int cull_point; cull_points) {
+foreach (int cull_point; cull_points) {
     setpointattrib(0, "Cd", cull_point, {1, 1, 0}, "set");
     setpointgroup(0, "filter", cull_point, 1, "set");
     }

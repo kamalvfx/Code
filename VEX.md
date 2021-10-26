@@ -20,22 +20,6 @@ foreach (int cull_point; cull_points) {
     setpointgroup(0, "filter", cull_point, 1, "set");
     }
 ```
-#### Change color based on "xor" comparison of y-pos of two geometries.
-```c
-// Change color based on "xor" comparison of y-pos of two geometries.
-vector pos1 = point(0, "P", 0);
-vector pos2 = point(0, "P", 1);
-
-int cond1 = pos1.y > 3;
-int cond2 = pos2.y > 3;
-
-int xor = cond1 ^ cond2;
-
-if (xor){
-    setpointattrib(0, "Cd", 0, {0,1,0}, "set");
-    setpointattrib(0, "Cd", 1, {0,1,0}, "set");
-    }
-```
 #### Imitate Attribute Interpolate behaviour.
 ```c
 // Imitate Attribute Interpolate behaviour.

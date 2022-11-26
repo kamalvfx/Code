@@ -28,3 +28,7 @@ flip_book_options.useResolution(0)
 # flip_book_options.resolution((1080, 720)) # Based on your camera resolution
 scene.flipbook(scene.curViewport(), flip_book_options)
 ```
+#### Inrcement Version
+```python
+hou.hipFile.saveAndIncrementFileName()
+```

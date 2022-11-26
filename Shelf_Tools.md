@@ -32,3 +32,25 @@ scene.flipbook(scene.curViewport(), flip_book_options)
 ```python
 hou.hipFile.saveAndIncrementFileName()
 ```
+#### Object Merge From Null
+```python
+try:
+    null = hou.selectedNodes()[0]
+    if null.type().name() == "null":
+        name = null.name()
+        null_name_list = name.split("_", 1)
+        if len(null_name_list) > 1:
+            suffix = null_name_list[1]
+            parent = null.parent()
+            om = parent.createNode("object_merge")
+            full_name = om.name() + "_" + suffix
+            om.setName(full_name, 1)
+            null_path = null.path()
+            om.setParms({"objpath1": null_path})
+        else:
+            hou.ui.displayMessage("Please rename the node with OUT prefix")
+    else:
+        hou.ui.displayMessage("Please select a null node")
+except:
+    hou.ui.displayMessage("Please select a null node")
+```

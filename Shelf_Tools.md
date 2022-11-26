@@ -46,7 +46,7 @@ try:
             full_name = om.name() + "_" + suffix
             om.setName(full_name, 1)
             null_path = null.path()
-            om.setParms({"objpath1": null_path})
+            om.setParms({"objpath1": null_path, "xformtype": 1})
         else:
             hou.ui.displayMessage("Please rename the node with OUT prefix")
     else:
